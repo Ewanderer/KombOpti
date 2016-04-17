@@ -77,3 +77,9 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Qt Builds
+*/build*_Qt_*
+
+# Temp files
+*~
