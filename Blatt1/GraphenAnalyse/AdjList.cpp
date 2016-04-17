@@ -73,6 +73,6 @@ std::ostream& operator<<(std::ostream& out, AdjList adj){
         }
         out << str << '\n';
     }
-    out << "Vertixes: " << adj.list.size() << '\n' << "Edges: " << counter << '\n';
+    out << "Vertices: " << adj.list.size() << '\n' << "Edges: " << counter << '\n';
     return out;
 }
