@@ -1,7 +1,9 @@
 #include <iostream>
+#include <fstream>
 #include "AdjList.h"
 
 int main(int argc, char *argv[]){
+    std::ofstream out("Log.txt");
     AdjList list;
     list.add('A');
     list.add('B');
@@ -12,9 +14,9 @@ int main(int argc, char *argv[]){
     list.add('B', 'C');
     list.add('B', 'D');
     list.add('C', 'D');
-    std::cout << list;
+    out << list;
     list.undirect();
-    std::cout << list;
+    out << list;
     list.invert();
-    std::cout << list;
+    out << list;
 }
