@@ -15,5 +15,6 @@ int main(int argc, char *argv[]){
     std::cout << list;
     list.undirect();
     std::cout << list;
-
+    list.invert();
+    std::cout << list;
 }

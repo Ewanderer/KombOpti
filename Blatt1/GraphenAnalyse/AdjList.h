@@ -1,7 +1,7 @@
 #ifndef ADJLIST_H
 #define ADJLIST_H
 #include <list>
-#include <utility>
+#include <map>
 #include <iostream>
 
 class AdjList{
@@ -14,8 +14,13 @@ public:
 
     unsigned int vertices();
     unsigned int edges();
+    unsigned int inDegree(char vertex);
+    unsigned int maxInDegree();
+    unsigned int outDegree(char vertex);
+    unsigned int maxOutDegree();
 
     void undirect();
+    void invert();
 
     friend std::ostream& operator<<(std::ostream& out, AdjList list);
 };

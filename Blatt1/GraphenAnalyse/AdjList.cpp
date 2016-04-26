@@ -52,11 +52,57 @@ unsigned int AdjList::edges(){
         counter += it->second.size();                                           //Sum of all lists
     return counter;
 }
+unsigned int AdjList::inDegree(char vertex){
+    unsigned int c = 0;
+    for(std::list<std::pair<char, std::list<char>>>::iterator v = list.begin(); v != list.end(); ++v)
+        for(std::list<char>::iterator e = v->second.begin(); e != v->second.end(); ++e)
+            if(*e == vertex)
+                ++c;
+    return c;
+}
+unsigned int AdjList::maxInDegree(){
+    std::map<char, unsigned int> c;
+    for(std::list<std::pair<char, std::list<char>>>::iterator v = list.begin(); v != list.end(); ++v)
+        c.emplace(v->first, 0);
+    for(std::list<std::pair<char, std::list<char>>>::iterator v = list.begin(); v != list.end(); ++v)
+        for(std::list<char>::iterator e = v->second.begin(); e != v->second.end(); ++e)
+            ++c[*e];
+    unsigned int max = 0;
+    for(std::map<char, unsigned int>::iterator v = c.begin(); v != c.end(); ++v)
+        if(v->second > max)
+            max = v->second;
+    return max;
+}
+unsigned int AdjList::outDegree(char vertex){
+    for(std::list<std::pair<char, std::list<char>>>::iterator v = list.begin(); v != list.end(); ++v)
+        if(v->first == vertex)
+            return v->second.size();
+    return 0;
+}
+unsigned int AdjList::maxOutDegree(){
+    unsigned int max = 0;
+    for(std::list<std::pair<char, std::list<char>>>::iterator v = list.begin(); v != list.end(); ++v)
+        if(v->second.size() > max)
+            max = v->second.size();
+    return max;
+}
 
 void AdjList::undirect(){
     for(std::list<std::pair<char, std::list<char>>>::iterator it = list.begin(); it != list.end(); ++it)
         for(std::list<char>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
             add(*it2, it->first);                                               //Adding all edges reverted
+}
+void AdjList::invert(){
+    for(std::list<std::pair<char, std::list<char>>>::iterator v = list.begin(); v != list.end(); ++v){
+        std::list<char>::iterator e = v->second.begin();
+        for(std::list<std::pair<char, std::list<char>>>::iterator i = list.begin(); i != list.end(); ++i)
+            if(v->first == i->first)
+                continue;
+            else if(*e == i->first)
+                v->second.erase(e++);
+            else
+                v->second.insert(e, i->first);
+    }
 }
 
 std::ostream& operator<<(std::ostream& out, AdjList adj){
@@ -74,5 +120,6 @@ std::ostream& operator<<(std::ostream& out, AdjList adj){
         out << str << '\n';
     }
     out << "Vertices: " << adj.list.size() << '\n' << "Edges: " << counter << '\n';
+    out << "Max indegree: " << adj.maxInDegree() << '\n' << "Max outdegree: " << adj.maxOutDegree() << '\n';
     return out;
 }
