@@ -15,8 +15,10 @@ public:
     unsigned int vertices();
     unsigned int edges();
     unsigned int inDegree(char vertex);
+    unsigned int minInDegree();
     unsigned int maxInDegree();
     unsigned int outDegree(char vertex);
+    unsigned int minOutDegree();
     unsigned int maxOutDegree();
 
     void undirect();

@@ -60,6 +60,19 @@ unsigned int AdjList::inDegree(char vertex){
                 ++c;
     return c;
 }
+unsigned int AdjList::minInDegree(){
+    std::map<char, unsigned int> c;
+    for(std::list<std::pair<char, std::list<char>>>::iterator v = list.begin(); v != list.end(); ++v)
+        c.emplace(v->first, 0);
+    for(std::list<std::pair<char, std::list<char>>>::iterator v = list.begin(); v != list.end(); ++v)
+        for(std::list<char>::iterator e = v->second.begin(); e != v->second.end(); ++e)
+            ++c[*e];
+    unsigned int min = c[list.front().first];
+    for(std::map<char, unsigned int>::iterator v = c.begin(); v != c.end(); ++v)
+        if(v->second < min)
+            min = v->second;
+    return min;
+}
 unsigned int AdjList::maxInDegree(){
     std::map<char, unsigned int> c;
     for(std::list<std::pair<char, std::list<char>>>::iterator v = list.begin(); v != list.end(); ++v)
@@ -78,6 +91,13 @@ unsigned int AdjList::outDegree(char vertex){
         if(v->first == vertex)
             return v->second.size();
     return 0;
+}
+unsigned int AdjList::minOutDegree(){
+    unsigned int min = list.front().second.size();
+    for(std::list<std::pair<char, std::list<char>>>::iterator v = list.begin(); v != list.end(); ++v)
+        if(v->second.size() < min)
+            min = v->second.size();
+    return min;
 }
 unsigned int AdjList::maxOutDegree(){
     unsigned int max = 0;
@@ -120,6 +140,7 @@ std::ostream& operator<<(std::ostream& out, AdjList adj){
         out << str << '\n';
     }
     out << "Vertices: " << adj.list.size() << '\n' << "Edges: " << counter << '\n';
-    out << "Max indegree: " << adj.maxInDegree() << '\n' << "Max outdegree: " << adj.maxOutDegree() << '\n';
+    out << "Min indegree: " << adj.minInDegree() << '\n' << "Max indegree: " << adj.maxInDegree() << '\n';
+    out << "Min outdegree: " << adj.minOutDegree() << '\n' << "Max outdegree: " << adj.maxOutDegree() << '\n';
     return out;
 }

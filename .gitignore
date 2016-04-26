@@ -79,7 +79,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # Qt Builds
-*/build*_Qt_*
+*/build-*
 
 # Temp files
 *~
