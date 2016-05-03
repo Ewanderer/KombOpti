@@ -5,7 +5,7 @@
 int main(int argc, char *argv[]){
     std::ofstream out("Log.txt");
     AdjList list;
-    list.add('A');
+/*    list.add('A');
     list.add('B');
     list.add('C');
     list.add('D');
@@ -14,9 +14,13 @@ int main(int argc, char *argv[]){
     list.add('B', 'C');
     list.add('B', 'D');
     list.add('C', 'D');
-    out << list;
+    std::cout << list;
     list.undirect();
-    out << list;
+    std::cout << list;
     list.invert();
-    out << list;
+    std::cout << list;*/
+    list.read("graph.txt");
+    std::cout << list;
+    list = list.prim();
+    std::cout << list;
 }
