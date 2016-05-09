@@ -1,9 +1,5 @@
 #include "AdjList.h"
 
-AdjList::AdjList(){
-
-}
-
 void AdjList::add(unsigned int v){                                                      //Adding a vertex if it doesn't exist
     std::list<std::pair<unsigned int, std::list<std::pair<unsigned int, int>>>>::iterator it(list.begin());
     for(; it != list.end() && it->first < v; ++it);//
@@ -234,6 +230,52 @@ AdjList AdjList::dfsTree(unsigned int v){
         }
     }
     return adj;
+}
+AdjList AdjList::bfsTree(){
+    return list.empty() ? AdjList() : bfsTree(list.begin()->first);
+}
+AdjList AdjList::bfsTree(unsigned int v){
+    AdjList adj;
+    adj.add(v);
+    std::deque<unsigned int> queue;
+    queue.push_back(v);
+    while(!queue.empty()){
+        unsigned int temp = queue.front();
+        queue.pop_front();
+        std::list<std::pair<unsigned int, std::list<std::pair<unsigned int, int>>>>::iterator it = list.begin();
+        while(it != list.end() && temp > it->first)
+            ++it;
+        for(std::list<std::pair<unsigned int, int>>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2){
+            std::list<std::pair<unsigned int, std::list<std::pair<unsigned int, int>>>>::iterator it3 = adj.list.begin();
+            while(it3 != adj.list.end() && it2->first > it3->first)
+                ++it3;
+            if(it2->first != it3->first){
+                queue.push_back(it2->first);
+                adj.add(it->first, it2->first, it2->second);
+            }
+        }
+    }
+    return adj;
+}
+
+std::deque<unsigned int> AdjList::findWay(unsigned int s, unsigned int f){
+    AdjList adj = bfsTree(s);
+    std::deque<unsigned int> queue;
+    queue.push_front(f);
+    unsigned int i = f;
+    while(i != s){
+        std::list<std::pair<unsigned int, std::list<std::pair<unsigned int, int>>>>::iterator it = list.begin();
+        while(it != list.end()){
+            for(std::list<std::pair<unsigned int, int>>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+                if(it2->first == i)
+                    goto findWayBreak;
+            ++it;
+        }
+        findWayBreak:
+        queue.push_front(it->first);
+        i = it->first;
+    }
+    return queue;
 }
 
 std::ostream& operator<<(std::ostream& out, AdjList adj){

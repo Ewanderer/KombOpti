@@ -5,7 +5,7 @@
 int main(int argc, char *argv[]){
     std::ofstream out("Log.txt");
     AdjList list;
-/*    list.add('A');
+    list.add('A');
     list.add('B');
     list.add('C');
     list.add('D');
@@ -17,12 +17,17 @@ int main(int argc, char *argv[]){
     std::cout << list;
     list.undirect();
     std::cout << list;
-    list.invert();
-    std::cout << list;*/
-    list.read("graph.txt");
-    std::cout << list;
+//    list.invert();
+//    std::cout << list;
+//    list.read("graph.txt");
+//    std::cout << list;
 //    list = list.prim();
 //    std::cout << list;
     AdjList l = list.dfsTree();
-    std::cout << list;
+    std::cout << l;
+    l = list.bfsTree();
+    std::cout << l;
+    std::deque<unsigned int> queue = list.findWay('A', 'D');
+    for(unsigned int i : queue)
+        std::cout << i << ", ";
 }

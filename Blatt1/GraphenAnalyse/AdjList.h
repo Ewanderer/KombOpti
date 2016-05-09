@@ -5,13 +5,12 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <queue>
+#include <deque>
+#include <cassert>
 
 class AdjList{
     std::list<std::pair<unsigned int, std::list<std::pair<unsigned int, int>>>> list;
 public:
-    AdjList();
-
     void add(unsigned int v);
     void add(unsigned int v, unsigned int e, int w = 0);
     void remove(unsigned int v);
@@ -36,9 +35,10 @@ public:
 
     AdjList dfsTree();
     AdjList dfsTree(unsigned int v);
+    AdjList bfsTree();
     AdjList bfsTree(unsigned int v);
 
-    std::queue<unsigned int> findWay(unsigned int s, unsigned int f);
+    std::deque<unsigned int> findWay(unsigned int s, unsigned int f);
 
     friend std::ostream& operator<<(std::ostream& out, AdjList list);
 };
