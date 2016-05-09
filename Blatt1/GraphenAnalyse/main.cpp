@@ -21,6 +21,8 @@ int main(int argc, char *argv[]){
     std::cout << list;*/
     list.read("graph.txt");
     std::cout << list;
-    list = list.prim();
+//    list = list.prim();
+//    std::cout << list;
+    AdjList l = list.dfsTree();
     std::cout << list;
 }

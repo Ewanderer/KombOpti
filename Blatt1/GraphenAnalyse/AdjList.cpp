@@ -42,6 +42,31 @@ void AdjList::add(unsigned int v, unsigned int e, int w){                       
     if(it2->first > e)
         it->second.insert(it2, std::pair<unsigned int, int>(e, w));                                              //Place sorted
 }
+void AdjList::remove(unsigned int v){
+    for(std::list<std::pair<unsigned int, std::list<std::pair<unsigned int, int>>>>::iterator it = list.begin(); it != list.end(); ++it)
+        it->second.remove_if([&](std::pair<unsigned int, int>& element)->bool{
+            return element.first == v;
+        });
+    list.remove_if([&](std::pair<unsigned int, std::list<std::pair<unsigned int, int>>>& element)->bool{
+        return element.first == v;
+    });
+}
+void AdjList::remove(unsigned int v, unsigned int e){
+    std::list<std::pair<unsigned int, std::list<std::pair<unsigned int, int>>>>::iterator it = list.begin();
+    while(it != list.end() && v < it->first)
+        ++it;
+    it->second.remove_if([&](std::pair<unsigned int, int>& element){
+        return element.first == e;
+    });
+}
+void AdjList::remove(unsigned int v, unsigned int e, int w){
+    std::list<std::pair<unsigned int, std::list<std::pair<unsigned int, int>>>>::iterator it = list.begin();
+    while(it != list.end() && v < it->first)
+        ++it;
+    it->second.remove_if([&](std::pair<unsigned int, int>& element){
+        return element.first == e && element.second == w;
+    });
+}
 
 unsigned int AdjList::vertices(){
     return list.size();
@@ -182,6 +207,33 @@ void AdjList::read(const char* str){
         add(e, v, w);
     }
     file.close();
+}
+
+AdjList AdjList::dfsTree(){
+    return list.empty() ? AdjList() : dfsTree(list.begin()->first);
+}
+AdjList AdjList::dfsTree(unsigned int v){
+    AdjList adj;
+    adj.add(v);
+    std::vector<unsigned int> stack;
+    stack.push_back(v);
+    while(!stack.empty()){
+        unsigned int temp = stack.back();
+        stack.pop_back();
+        std::list<std::pair<unsigned int, std::list<std::pair<unsigned int, int>>>>::iterator it = list.begin();
+        while(it != list.end() && temp > it->first)
+            ++it;
+        for(std::list<std::pair<unsigned int, int>>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2){
+            std::list<std::pair<unsigned int, std::list<std::pair<unsigned int, int>>>>::iterator it3 = adj.list.begin();
+            while(it3 != adj.list.end() && it2->first > it3->first)
+                ++it3;
+            if(it2->first != it3->first){
+                stack.push_back(it2->first);
+                adj.add(it->first, it2->first, it2->second);
+            }
+        }
+    }
+    return adj;
 }
 
 std::ostream& operator<<(std::ostream& out, AdjList adj){
