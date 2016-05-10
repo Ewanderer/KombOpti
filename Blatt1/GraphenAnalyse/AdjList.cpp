@@ -264,8 +264,8 @@ std::deque<unsigned int> AdjList::findWay(unsigned int s, unsigned int f){
     queue.push_front(f);
     unsigned int i = f;
     while(i != s){
-        std::list<std::pair<unsigned int, std::list<std::pair<unsigned int, int>>>>::iterator it = list.begin();
-        while(it != list.end()){
+        std::list<std::pair<unsigned int, std::list<std::pair<unsigned int, int>>>>::iterator it = adj.list.begin();
+        while(it != adj.list.end()){
             for(std::list<std::pair<unsigned int, int>>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
                 if(it2->first == i)
                     goto findWayBreak;
