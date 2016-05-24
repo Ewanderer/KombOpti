@@ -2,6 +2,7 @@
 #define ADJLIST_H
 #include <map>
 #include <ostream>
+#include <utility>
 #include "vertexlist.h"
 
 using std::map;
@@ -16,7 +17,7 @@ public:
     void remove(unsigned int v, unsigned int e);
     void remove(unsigned int v, unsigned int e, int w);
 
-    map<unsigned int, multimap<unsigned int, int>> dijkstra(unsigned int v);
+    map<unsigned int, std::pair<unsigned int, int>> dijkstra(unsigned int v);
 
     friend std::ostream& operator<<(std::ostream& out, AdjList& adj);
 private:
