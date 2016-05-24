@@ -29,15 +29,11 @@ int main(){
     map<unsigned int, std::pair<unsigned int, int>> dijkstra = list.dijkstra(start);
     for(auto v : dijkstra){
         out << v.first << '(' << v.second.second << "): ";
-        if(v.first == v.second.first){
-            out << v.first << '\n';
-            continue;
-        }
-        std::string str(v.first);
+        std::string str(std::to_string(v.first));
         unsigned int it = v.first;
-        while(v.second.second != -1 && it != start){
-            it = dijkstra[it].second.first;
-            str = std::string() + it + "->" + str;
+        while(it != start){
+            it = dijkstra[it].first;
+            str = std::to_string(it) + "->" + str;
         }
         out << str << '\n';
     }

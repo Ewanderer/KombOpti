@@ -3,6 +3,8 @@
 #include <map>
 #include <ostream>
 #include <utility>
+#include <limits>
+#include <vector>
 #include "vertexlist.h"
 
 using std::map;
