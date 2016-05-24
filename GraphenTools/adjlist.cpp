@@ -22,7 +22,7 @@ void AdjList::remove(unsigned int v, unsigned int e, int w){
 std::map<unsigned int, std::pair<unsigned int, int>> AdjList::dijkstra(unsigned int v){
     std::map<unsigned int, std::pair<unsigned int, int>> dijkstra;
     for(auto it : _list)
-        dijkstra.emplace(it.first, std::pair<unsigned int, int>(v, std::numeric_limits<int>::max()));
+        dijkstra.emplace(it.first, std::pair<unsigned int, int>(it.first, std::numeric_limits<int>::max()));
     dijkstra[v].second = 0;
     std::vector<unsigned int> vec;
     for(auto it : _list)

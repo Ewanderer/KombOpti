@@ -28,6 +28,8 @@ int main(){
     const unsigned int start = 1;
     map<unsigned int, std::pair<unsigned int, int>> dijkstra = list.dijkstra(start);
     for(auto v : dijkstra){
+        if(v.first == v.second.first)
+            continue;
         out << v.first << '(' << v.second.second << "): ";
         std::string str(std::to_string(v.first));
         unsigned int it = v.first;
