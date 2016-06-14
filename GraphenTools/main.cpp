@@ -12,32 +12,28 @@ std::ostream& out = std::cout;
 
 int main(){
     AdjList list;
+    list.add(0);
     list.add(1);
     list.add(2);
     list.add(3);
     list.add(4);
     list.add(5);
-    list.add(1, 2, 1);
-    list.add(1, 5, 4);
-    list.add(2, 3, 1);
-    list.add(2, 5, 2);
-    list.add(4, 3, 3);
-    list.add(5, 4, 1);
+    list.add(6);
+    list.add(0, 1, 10);
+    list.add(0, 2, 20);
+    list.add(0, 3, 15);
+    list.add(1, 4, 8);
+    list.add(2, 1, 4);
+    list.add(2, 4, 5);
+    list.add(2, 5, 9);
+    list.add(3, 2, 4);
+    list.add(3, 5, 6);
+    list.add(4, 5, 25);
+    list.add(4, 6, 10);
+    list.add(5, 6, 30);
     out << list;
-
-    const unsigned int start = 1;
-    map<unsigned int, std::pair<unsigned int, int>> dijkstra = list.dijkstra(start);
-    for(auto v : dijkstra){
-        if(v.first == v.second.first)
-            continue;
-        out << v.first << '(' << v.second.second << "): ";
-        std::string str(std::to_string(v.first));
-        unsigned int it = v.first;
-        while(it != start){
-            it = dijkstra[it].first;
-            str = std::to_string(it) + "->" + str;
-        }
-        out << str << '\n';
-    }
+    auto p = list.bfs(0, 7);
+    for(auto i : p)
+        std::cout << i << std::endl;
 }
 

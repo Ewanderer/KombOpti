@@ -7,6 +7,8 @@ using std::multimap;
 
 class VertexList{
 public:
+    VertexList();
+    VertexList(VertexList& vl);
 
     void add(unsigned int e, int w = 1);
     void remove(unsigned int e);

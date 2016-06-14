@@ -1,6 +1,14 @@
 #include "adjlist.h"
 #include <iostream>
 
+AdjList::AdjList(){
+
+}
+AdjList::AdjList(AdjList &adj){
+//    for(auto v : adj._list)
+//        _list[v.first] = VertexList(v.second);
+}
+
 void AdjList::add(unsigned int v){
     _list.emplace(v, VertexList());
 }
@@ -17,6 +25,21 @@ void AdjList::remove(unsigned int v, unsigned int e){
 }
 void AdjList::remove(unsigned int v, unsigned int e, int w){
     _list[v].remove(e, w);
+}
+
+vector<unsigned int> AdjList::bfs(unsigned int s, unsigned int t){
+    vector<vector<unsigned int>> list;
+    list.push_back(vector<unsigned int>());
+    list[0].push_back(s);
+    for(unsigned int i = 0; i < list.size(); ++i){
+        for(auto v : _list[list[i].back()]._list){
+            vector<unsigned int> vec(list[i]);
+            vec.push_back(v.first);
+            if(vec.back() == t)
+                return vec;
+            list.push_back(vec);
+        }
+    }
 }
 
 std::map<unsigned int, std::pair<unsigned int, int>> AdjList::dijkstra(unsigned int v){
@@ -40,6 +63,11 @@ std::map<unsigned int, std::pair<unsigned int, int>> AdjList::dijkstra(unsigned 
         vec.erase(vec.begin() + min);
     }
     return dijkstra;
+}
+
+AdjList AdjList::maxFlow(unsigned int s, unsigned int t){
+    //AdjList adj(*this);
+
 }
 
 std::ostream& operator<<(std::ostream& out, AdjList& adj){

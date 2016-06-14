@@ -9,9 +9,12 @@
 
 using std::map;
 using std::multimap;
+using std::vector;
 
 class AdjList{
 public:
+    AdjList();
+    AdjList(AdjList& adj);
 
     void add(unsigned int v);
     void add(unsigned int v, unsigned int e, int w = 1);
@@ -19,7 +22,11 @@ public:
     void remove(unsigned int v, unsigned int e);
     void remove(unsigned int v, unsigned int e, int w);
 
+    vector<unsigned int> bfs(unsigned int s, unsigned int t);
+
     map<unsigned int, std::pair<unsigned int, int>> dijkstra(unsigned int v);
+
+    AdjList maxFlow(unsigned int s, unsigned int t);
 
     friend std::ostream& operator<<(std::ostream& out, AdjList& adj);
 private:
