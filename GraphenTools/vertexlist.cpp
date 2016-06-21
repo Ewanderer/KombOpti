@@ -1,11 +1,7 @@
 #include "vertexlist.h"
 
-VertexList::VertexList(){
-
-}
-VertexList::VertexList(VertexList& vl){
-//    for(auto v : vl._list)
-//        _list[v.first] = v.second;
+int& VertexList::operator[](unsigned int e) {
+    return _list[e];
 }
 
 void VertexList::add(unsigned int e, int w){
@@ -21,6 +17,15 @@ void VertexList::remove(unsigned int e, int w){
             _list.erase(it++);
         else
             ++it;
+}
+map<unsigned int, int>::iterator VertexList::begin() {
+    return _list.begin();
+}
+map<unsigned int, int>::iterator VertexList::end() {
+    return _list.end();
+}
+int VertexList::size() {
+    return _list.size();
 }
 
 std::ostream& operator<<(std::ostream& out, VertexList& vlist){

@@ -3,21 +3,24 @@
 #include <map>
 #include <ostream>
 
-using std::multimap;
+using std::map;
 
 class VertexList{
 public:
-    VertexList();
-    VertexList(VertexList& vl);
+
+    int& operator[](unsigned int);
 
     void add(unsigned int e, int w = 1);
     void remove(unsigned int e);
     void remove(unsigned int e, int w);
+    map<unsigned int, int>::iterator begin();
+    map<unsigned int, int>::iterator end();
+    int size();
 
     friend std::ostream& operator<<(std::ostream& out, VertexList& vlist);
     friend class AdjList;
 private:
-    multimap<unsigned int, int> _list;
+    map<unsigned int, int> _list;
 };
 
 #endif // VERTEXLIST_H

@@ -32,8 +32,7 @@ int main(){
     list.add(4, 6, 10);
     list.add(5, 6, 30);
     out << list;
-    auto p = list.bfs(0, 7);
-    for(auto i : p)
-        std::cout << i << std::endl;
+    list.push_relabel(0, 6);
+    out << list;
 }
 
